@@ -8,6 +8,7 @@ SEXP binMeans(SEXP y, SEXP x, SEXP bx, SEXP retCount, SEXP right);
 SEXP colCounts(SEXP x, SEXP dim, SEXP rows, SEXP cols, SEXP value, SEXP what, SEXP naRm, SEXP hasNA, SEXP useNames);
 SEXP colOrderStats(SEXP x, SEXP dim, SEXP rows, SEXP cols, SEXP which, SEXP useNames);
 SEXP colRanges(SEXP x, SEXP dim, SEXP rows, SEXP cols, SEXP what, SEXP naRm, SEXP hasNA, SEXP useNames);
+SEXP colWhichRanges(SEXP x, SEXP dim, SEXP rows, SEXP cols, SEXP what, SEXP naRm, SEXP hasNA, SEXP useNames);
 SEXP count(SEXP x, SEXP idxs, SEXP value, SEXP what, SEXP naRm, SEXP hasNA);
 SEXP diff2(SEXP x, SEXP idxs, SEXP lag, SEXP differences, SEXP useNames);
 SEXP indexByRow(SEXP dim, SEXP idxs);
@@ -30,6 +31,7 @@ SEXP rowRanges(SEXP x, SEXP dim, SEXP rows, SEXP cols, SEXP what, SEXP naRm, SEX
 SEXP rowRanksWithTies(SEXP x, SEXP dim, SEXP rows, SEXP cols, SEXP tiesMethod, SEXP byRow, SEXP useNames);
 SEXP rowSums2(SEXP x, SEXP dim, SEXP rows, SEXP cols, SEXP naRm, SEXP hasNA, SEXP byRow, SEXP useNames);
 SEXP rowVars(SEXP x, SEXP dim, SEXP rows, SEXP cols, SEXP naRm, SEXP refine, SEXP hasNA, SEXP byRow, SEXP useNames);
+SEXP rowWhichRanges(SEXP x, SEXP dim, SEXP rows, SEXP cols, SEXP what, SEXP naRm, SEXP hasNA, SEXP useNames);
 SEXP signTabulate(SEXP x, SEXP idxs);
 SEXP sum2(SEXP x, SEXP idxs, SEXP naRm, SEXP mode);
 SEXP validate(SEXP idxs, SEXP maxIdx, SEXP allowOutOfBound);

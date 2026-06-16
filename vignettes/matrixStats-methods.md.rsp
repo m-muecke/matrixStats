@@ -226,6 +226,20 @@ row <- data.frame(
 )
 tbl <- rbind(tbl, row)
 
+row <- data.frame(
+  "Estimator"   = "Index of minimum",
+  "Functions"   = "which.min, colWhichMins, rowWhichMins",
+  "Example"     = "which.min(x); rowWhichMins(x)"
+)
+tbl <- rbind(tbl, row)
+
+row <- data.frame(
+  "Estimator"   = "Index of maximum",
+  "Functions"   = "which.max, colWhichMaxs, rowWhichMaxs",
+  "Example"     = "which.max(x); rowWhichMaxs(x)"
+)
+tbl <- rbind(tbl, row)
+
 %>
 <% kable(tbl) %>
 
