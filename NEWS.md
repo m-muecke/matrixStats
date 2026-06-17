@@ -1,6 +1,10 @@
 # Version (development version)
 
- * ...
+## Performance
+
+ * `rowProds()` and `colProds()` are now implemented in native code,
+   instead of iterating over the rows (columns) in R. Both the
+   `"direct"` and the `"expSumLog"` methods are supported. [#130]
  
 
 # Version 1.5.0 [2025-01-07]

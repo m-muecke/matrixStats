@@ -40,37 +40,12 @@ rowProds <- function(x, rows = NULL, cols = NULL, na.rm = FALSE,
   else if (!is.null(rows)) x <- x[rows, , drop = FALSE]
   else if (!is.null(cols)) x <- x[, cols, drop = FALSE]
 
-  # Preallocate result (zero:ed by default)
-  n <- nrow(x)
-  y <- double(length = n)
-
-  # Nothing todo?
-  if (n == 0L) return(y)
-
   # Argument 'method':
   method <- method[1L]
 
-  # How to calculate product?
-  if (method == "expSumLog") {
-    prod <- product
-  } else if (method == "direct") {
-  } else {
-    stop(sprintf("Unknown value of argument '%s': %s", "method", method))
-  }
-
-  for (ii in seq_len(n)) {
-    y[ii] <- prod(x[ii, , drop = TRUE], na.rm = na.rm)
-  }
-  
-  # Update names attribute?
-  if (useNames) {
-    names <- rownames(x)
-    if (!is.null(names)) names(y) <- names
-  } else {
-    names(y) <- NULL
-  }
-
-  y
+  has_nas <- TRUE
+  .Call(C_rowProds, x, dim(x), NULL, NULL, na.rm, has_nas, TRUE,
+        productMethodCode(method), useNames)
 }
 
 
@@ -86,35 +61,22 @@ colProds <- function(x, rows = NULL, cols = NULL, na.rm = FALSE,
   else if (!is.null(rows)) x <- x[rows, , drop = FALSE]
   else if (!is.null(cols)) x <- x[, cols, drop = FALSE]
 
-  # Preallocate result (zero:ed by default)
-  n <- ncol(x)
-  y <- double(length = n)
-
-  # Nothing todo?
-  if (n == 0L) return(y)
-
   # Argument 'method':
   method <- method[1L]
 
-  # How to calculate product?
-  if (method == "expSumLog") {
-    prod <- product
-  } else if (method == "direct") {
+  has_nas <- TRUE
+  .Call(C_rowProds, x, dim(x), NULL, NULL, na.rm, has_nas, FALSE,
+        productMethodCode(method), useNames)
+}
+
+# Maps argument 'method' to the integer code understood by C_rowProds:
+#   0 = "direct", 1 = "expSumLog"
+productMethodCode <- function(method) {
+  if (method == "direct") {
+    0L
+  } else if (method == "expSumLog") {
+    1L
   } else {
     stop(sprintf("Unknown value of argument '%s': %s", "method", method))
   }
-
-  for (ii in seq_len(n)) {
-    y[ii] <- prod(x[, ii, drop = TRUE], na.rm = na.rm)
-  }
-  
-  # Update names attribute?
-  if (useNames) {
-    names <- colnames(x)
-    if (!is.null(names)) names(y) <- names
-  } else {
-    names(y) <- NULL
-  }
-
-  y
 }
