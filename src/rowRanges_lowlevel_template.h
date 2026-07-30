@@ -317,7 +317,7 @@ void CONCAT_MACROS(rowRanges, X_C_SIGNATURE)(X_C_TYPE *x, R_xlen_t nrow, R_xlen_
         colBegin = ((cols == NULL) ? (jj) : cols[jj]) * nrow;
         for (ii=0; ii < nrows; ii++) {
           value = x[((rows == NULL) ? (ii) : rows[ii])+colBegin];
-          mins[ii] = value < mins[ii] ? value : mins[ii];
+          if (value < mins[ii]) mins[ii] = value;
         }
       }
     } else if (what == 1) {
@@ -333,7 +333,7 @@ void CONCAT_MACROS(rowRanges, X_C_SIGNATURE)(X_C_TYPE *x, R_xlen_t nrow, R_xlen_
         colBegin = ((cols == NULL) ? (jj) : cols[jj]) * nrow;
         for (ii=0; ii < nrows; ii++) {
           value = x[((rows == NULL) ? (ii) : rows[ii])+colBegin];
-          maxs[ii] = value > maxs[ii] ? value : maxs[ii];
+          if (value > maxs[ii]) maxs[ii] = value;
         }
       }
     } else if (what == 2) {
@@ -351,8 +351,11 @@ void CONCAT_MACROS(rowRanges, X_C_SIGNATURE)(X_C_TYPE *x, R_xlen_t nrow, R_xlen_
         colBegin = ((cols == NULL) ? (jj) : cols[jj]) * nrow;
         for (ii=0; ii < nrows; ii++) {
           value = x[((rows == NULL) ? (ii) : rows[ii])+colBegin];
-          mins[ii] = value < mins[ii] ? value : mins[ii];
-          maxs[ii] = value > maxs[ii] ? value : maxs[ii];
+          if (value < mins[ii]) {
+            mins[ii] = value;
+          } else if (value > maxs[ii]) {
+            maxs[ii] = value;
+          }
         }
       }
     } /* if (what ...) */
